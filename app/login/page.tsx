@@ -1,14 +1,17 @@
 "use client"
 import React, { FormEvent } from 'react'
+import { authLogin } from '../_functions/login';
 
 const Login = () => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        const email = formData.get('email');
-        const password = formData.get('password');  
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;  
 
-        console.log(email,password);
+
+        authLogin(email,password);
+        //console.log(email,password);
 
            
 
