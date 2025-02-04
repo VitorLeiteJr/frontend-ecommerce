@@ -8,6 +8,14 @@ const login = await axios.post("http://localhost:3001/api/user/login", {email,pa
 
 console.log(login.data);
 
+
+
+if(!login.data.token) {
+    return false;
+}else{
+    localStorage.setItem("token", login.data.token);
+}
+
 return true;
 }catch{
     console.log("something go wrong");
