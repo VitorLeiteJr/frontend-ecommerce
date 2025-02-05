@@ -6,18 +6,25 @@ import { checkAuth } from '../_functions/auth';
 
 const Login = () => {
       const route = useRouter();
-      const [error, setError] = useState("");
+      const [error, setError] = useState<string>("");
+      
 
 
     useEffect(()=>{
+        
+       const check = async()=>{
 
-        checkAuth(localStorage.getItem("token") as string);
+       const auth = await checkAuth(localStorage.getItem("token") as string);
+
+       if(auth)route.push('/');
+
+       };
+       check();
     });
 
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-
 
         const formData = new FormData(event.currentTarget);
         const email = formData.get('email') as string;
@@ -25,8 +32,6 @@ const Login = () => {
 
 
        const login = await authLogin(email,password);
-      
-       console.log(login)
        if(!login){ 
         setError("credentials are wrong");
         return;
@@ -35,6 +40,8 @@ const Login = () => {
 
 
     }
+   
+
   return (
     <div>
         <form  onSubmit={handleSubmit}>
