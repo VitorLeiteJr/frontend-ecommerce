@@ -14,6 +14,7 @@ if(!login.data.token) {
     return false;
 }else{
     localStorage.setItem("token", login.data.token);
+    return login.data.token;
 }
 
 return true;

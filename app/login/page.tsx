@@ -2,25 +2,34 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { authLogin } from '../_functions/login';
 import { useRouter } from 'next/navigation';
-import { checkAuth } from '../_functions/auth';
+//import { checkAuth } from '../_functions/auth';
+import { useAuth } from '../_components/context/auth';
 
 const Login = () => {
-      const route = useRouter();
+      const router = useRouter();
       const [error, setError] = useState<string>("");
+
+      const {token, login } = useAuth();
       
 
-
-    useEffect(()=>{
+      useEffect(() => {
         
-       const check = async()=>{
+        if (token) {
+          router.push("/dashboard"); // Redirect if authenticated
+        }
+      }, [token, router]);
 
-       const auth = await checkAuth(localStorage.getItem("token") as string);
+   // useEffect(()=>{
+        
+      // const check = async()=>{
 
-       if(auth)route.push('/');
+      //  const auth = await checkAuth(localStorage.getItem("token") as string);
 
-       };
-       check();
-    });
+      //  if(auth)route.push('/');
+
+      //  };
+      //  check();
+ //   });
 
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) =>{
@@ -31,12 +40,14 @@ const Login = () => {
         const password = formData.get('password') as string;  
 
 
-       const login = await authLogin(email,password);
-       if(!login){ 
+       const loginAuth = await authLogin(email,password);
+       if(!loginAuth){ 
         setError("credentials are wrong");
         return;
       }
-      route.push("/");
+      login(loginAuth);
+      //console.log(login);
+      //router.push("/");
 
 
     }
