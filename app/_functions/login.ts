@@ -6,9 +6,6 @@ try{
 
 const login = await axios.post("http://localhost:3001/api/user/login", {email,password});
 
-console.log(login.data);
-
-
 
 if(!login.data.token) {
     return false;

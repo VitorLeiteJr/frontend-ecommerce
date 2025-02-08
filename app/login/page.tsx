@@ -15,7 +15,7 @@ const Login = () => {
       useEffect(() => {
         
         if (token) {
-          router.push("/dashboard"); // Redirect if authenticated
+           router.push("/"); // Redirect if authenticated
         }
       }, [token, router]);
 
@@ -56,8 +56,8 @@ const Login = () => {
   return (
     <div>
         <form  onSubmit={handleSubmit}>
-      <input name='email' placeholder='Email'/>
-      <input name='password' placeholder='Password'/>
+      <input name='email' placeholder='Email' required/>
+      <input name='password' placeholder='Password' required/>
       <button>Login</button>
       <p className='text-black'>{error}</p>
       </form>
