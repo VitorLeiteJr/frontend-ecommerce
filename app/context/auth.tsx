@@ -21,23 +21,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (storedToken) {
       checkTokenValidity(storedToken);
     }
-  }, []);
+  },[]);
 
   const checkTokenValidity = async (token: string) => {
-    try {
-     
+   
+      
         const checkToken = await axios.post("http://localhost:3001/api/user/auth",{token});
-        console.log(checkToken.data);
-      if (checkToken.data.message) {
-        setToken(token);
+       
+      if (checkToken.data.authorization) {
+        login(token);
       } else {
         logout();
       }
-    } catch (error) {
-      console.error("Token validation failed", error);
-      logout();
-    }
-  };
+    
+    };
+       
+        
+  
 
   const login = (newToken: string) => {
     localStorage.setItem("token", newToken);

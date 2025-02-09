@@ -3,7 +3,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { authLogin } from '../_functions/login';
 import { useRouter } from 'next/navigation';
 //import { checkAuth } from '../_functions/auth';
-import { useAuth } from '../_components/context/auth';
+import { useAuth } from '../context/auth';
 
 const Login = () => {
       const router = useRouter();

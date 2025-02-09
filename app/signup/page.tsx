@@ -6,6 +6,8 @@ const SignUp = () => {
 
     const [errorSignup, setErrorSignup]= useState<boolean>(false);
 
+
+
     const handleSignUp = async(event: FormEvent<HTMLFormElement>) => {
        const response = await signUp(event);
         if(response) alert("success");

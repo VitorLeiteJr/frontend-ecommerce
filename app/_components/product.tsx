@@ -1,6 +1,8 @@
 "use client"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/auth";
+import { useRouter } from "next/navigation";
 
 
 interface productType{
@@ -18,6 +20,16 @@ interface productType{
                 const [loading, setLoading] = useState(true);
                 const [error, setError] = useState(null);
 
+                const router = useRouter();
+                const {token} = useAuth();
+
+
+                useEffect(()=>{
+                    if(!token){
+                        router.push("/login");
+                    }
+                });
+
                     useEffect(() => {
                         axios.get("http://localhost:3001/api/product/get")
                         .then((response) => {
@@ -33,6 +45,8 @@ interface productType{
 
                             if (loading) return <p>Loading...</p>;
                             if (error) return <p>Error loading data</p>;
+
+                           
 
                             return (
                                 <ul>
